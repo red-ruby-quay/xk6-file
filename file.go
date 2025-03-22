@@ -149,6 +149,21 @@ func (*FILE) ReadFile(path string) (string, error) {
 	return string(content), nil
 }
 
+// ReadBytes reads the contents of a file as bytes
+func (*FILE) ReadBytes(path string) ([]byte, error) {
+    f, err := os.Open(path)
+    if err != nil {
+        return nil, err
+    }
+    defer f.Close()
+
+    content, err := io.ReadAll(f)
+    if err != nil {
+        return nil, err
+    }
+    return content, nil
+}
+
 // CreateDirectory creates a new directory at the specified path
 func (*FILE) CreateDirectory(path string) error {
 	err := os.MkdirAll(path, 0o755)
